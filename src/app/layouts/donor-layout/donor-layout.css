@@ -1,0 +1,7 @@
+.donor-layout {
+    background-color: blueviolet;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
