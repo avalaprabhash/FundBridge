@@ -1,38 +1,12 @@
-<header class="public-header">
-  <div class="header-brand" (click)="home()">
-    <span class="logo-icon">🌉</span>
-    <span class="logo-text">FundBridge</span>
-  </div>
+<div class="public-header">
+    <h1 (click)="home()">Fund Bridge</h1>
 
-  <nav class="nav-links">
-    <a routerLink="/" class="nav-item">Browse Causes</a>
-  </nav>
+    <div class="public-header-auth">
+        <button routerLink="/login">Log in</button>
+        <button routerLink="/register">Sign up</button>
+    </div>
+</div>
 
-  <!-- Demo Role Switching Toolbar -->
-  <div class="role-switcher">
-    <span class="switcher-lbl">Role View:</span>
-    <button [class.active]="auth.userRole() === 'VISITOR'" (click)="switchRole('VISITOR')">Visitor</button>
-    <button [class.active]="auth.userRole() === 'DONOR'" (click)="switchRole('DONOR')">Donor</button>
-    <button [class.active]="auth.userRole() === 'CAMPAIGNER'" (click)="switchRole('CAMPAIGNER')">Campaigner</button>
-    <button [class.active]="auth.userRole() === 'ADMIN'" (click)="switchRole('ADMIN')">Admin</button>
-  </div>
-
-  <div class="header-actions">
-    <ng-container *ngIf="!auth.isLoggedIn()">
-      <a routerLink="/login" class="btn-link">Log in</a>
-      <a routerLink="/register" class="btn-primary">Start Fundraiser</a>
-    </ng-container>
-
-    <ng-container *ngIf="auth.isLoggedIn()">
-      <div class="user-badge">
-        <span class="user-name">{{ auth.currentUser()?.fullName }}</span>
-        <span class="role-tag">{{ auth.userRole() }}</span>
-      </div>
-      <button (click)="logout()" class="btn-logout">Log out</button>
-    </ng-container>
-  </div>
-</header>
-
-<main class="public-layout-content">
-  <router-outlet></router-outlet>
-</main>
+<div class="public-layout-content">
+    <router-outlet></router-outlet>
+</div>
