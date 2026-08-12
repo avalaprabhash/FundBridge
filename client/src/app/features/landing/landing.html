@@ -1,0 +1,85 @@
+<div class="landing-page">
+  <section class="hero-container">
+    <div class="hero-badge">
+      <span class="pulse-dot"></span> Verified Medical & Social Crowdfunding
+    </div>
+    
+    <h1 class="hero-title">
+      Bridge the Gap Between <span class="gradient-text">Urgent Needs</span> and <span class="gradient-emerald">Generous Hearts</span>
+    </h1>
+    
+    <p class="hero-subtitle">
+      FundBridge connects transparent, institution-verified medical causes, education projects, and emergency relief funds directly with compassionate donors worldwide.
+    </p>
+
+    <div class="cta-cards-grid">
+      <div class="cta-card card-donor">
+        <div class="card-icon">❤️</div>
+        <h3>Want to Support a Cause?</h3>
+        <p>Explore verified medical cases, track your contributions in real time, and receive instant tax benefit receipts.</p>
+        <button routerLink="/donor" class="btn btn-primary">Explore All Campaigns &rarr;</button>
+      </div>
+
+      <div class="cta-card card-fundraiser">
+        <div class="card-icon">🚀</div>
+        <h3>Need Financial Help?</h3>
+        <p>Create a fundraiser in under 5 minutes. Benefit from zero platform fees, direct hospital settlement, and dedicated guidance.</p>
+        <button routerLink="/fundraiser" class="btn btn-emerald">Start a Fundraiser &rarr;</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Campaigns Section -->
+  <section class="featured-campaigns">
+    <div class="section-header">
+      <h2>Urgent Campaigns Needing Your Help</h2>
+      <p>Live campaigns powered by Node.js, Express, and PostgreSQL database.</p>
+    </div>
+
+    <div *ngIf="loading" class="loading-text">
+      Loading campaigns from PostgreSQL database...
+    </div>
+
+    <div class="campaigns-grid" *ngIf="!loading && featuredCampaigns && featuredCampaigns.length > 0">
+      <div class="campaign-card" *ngFor="let c of featuredCampaigns">
+        <img [src]="c.image || 'https://images.unsplash.com/photo-1523324930923-4726b841a1db?w=600'" [alt]="c.title" class="camp-img">
+        <div class="card-body">
+          <h3>{{ c.title }}</h3>
+          <p class="desc">{{ c.description }}</p>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="c.targetAmount ? ((c.collectedAmount / c.targetAmount) * 100 > 100 ? 100 : (c.collectedAmount / c.targetAmount) * 100) : 0"></div>
+          </div>
+          <div class="camp-stats">
+            <span>Raised: <strong>₹{{ c.collectedAmount }}</strong></span>
+            <span>Target: ₹{{ c.targetAmount }}</span>
+          </div>
+          <div class="card-action">
+            <span class="days">{{ c.daysLeft }} days left</span>
+            <button routerLink="/donor" class="btn-donate-sm">Donate Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view-all-wrapper">
+      <button routerLink="/donor" class="btn-view-all">View All {{ featuredCampaigns && featuredCampaigns.length > 0 ? '14+' : '' }} Campaigns &rarr;</button>
+    </div>
+  </section>
+
+  <section class="trust-banner">
+    <div class="stat-item">
+      <span class="stat-num">100%</span>
+      <span class="stat-lbl">Verified Beneficiaries</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num">0%</span>
+      <span class="stat-lbl">Platform Fee Option</span>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <span class="stat-num">Direct</span>
+      <span class="stat-lbl">Hospital Disbursement</span>
+    </div>
+  </section>
+</div>

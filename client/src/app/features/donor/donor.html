@@ -1,0 +1,74 @@
+<app-donor-layout></app-donor-layout>
+
+<div class="toast-notification" *ngIf="toastMessage">
+    {{ toastMessage }}
+</div>
+
+<div class="donor-container">
+    <div class="donor-header">
+        <h2>Explore Campaigns</h2>
+        <p>Support meaningful causes powered by PostgreSQL database.</p>
+    </div>
+
+    <div *ngIf="loading" class="loading-spinner">
+        Loading campaigns from backend database...
+    </div>
+
+    <div class="campaign-list" *ngIf="!loading && allCamps && allCamps.length > 0">
+        <div *ngFor="let c of allCamps">
+            <div class="campaign-card">
+                <img [src]="c.image || 'https://images.unsplash.com/photo-1523324930923-4726b841a1db?w=600'" [alt]="c.title" class="camp-img">
+                <div class="card-content">
+                    <h2>{{c.title}}</h2>
+                    <p class="description">{{c.description}}</p>
+
+                    <div class="progress-section">
+                        <div class="progress-bar">
+                            <div class="progress-fill" 
+                                 [style.width.%]="c.targetAmount ? ((c.collectedAmount / c.targetAmount) * 100 > 100 ? 100 : (c.collectedAmount / c.targetAmount) * 100) : 0">
+                            </div>
+                        </div>
+                        <div class="amount-info">
+                            <span>Collected: <strong>₹{{c.collectedAmount}}</strong></span>
+                            <span>Target: ₹{{c.targetAmount}}</span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer">
+                        <span class="days-left">{{c.daysLeft}} days left</span>
+                        <button class="donate-btn" (click)="openDonateModal(c)">Donate Now</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && (!allCamps || allCamps.length === 0)" class="loading-spinner">
+        No campaigns found.
+    </div>
+</div>
+
+<!-- Modal for Donation -->
+<div class="modal-backdrop" *ngIf="selectedCampaign" (click)="closeDonateModal()">
+    <div class="modal-card" (click)="$event.stopPropagation()">
+        <h3>Donate to {{ selectedCampaign.title }}</h3>
+        <p>Enter the amount you would like to contribute (₹):</p>
+        
+        <div class="modal-input-group">
+            <input type="number" [(ngModel)]="donationAmount" min="1" placeholder="Enter amount" />
+        </div>
+
+        <div class="preset-buttons">
+            <button (click)="donationAmount = 500">₹500</button>
+            <button (click)="donationAmount = 1000">₹1,000</button>
+            <button (click)="donationAmount = 5000">₹5,000</button>
+        </div>
+
+        <div class="modal-actions">
+            <button class="cancel-btn" (click)="closeDonateModal()">Cancel</button>
+            <button class="confirm-btn" [disabled]="donating || donationAmount <= 0" (click)="confirmDonate()">
+                {{ donating ? 'Processing...' : 'Confirm Donation' }}
+            </button>
+        </div>
+    </div>
+</div>

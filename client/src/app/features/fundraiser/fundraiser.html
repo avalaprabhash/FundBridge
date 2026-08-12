@@ -1,0 +1,38 @@
+<app-fundraiser-layout></app-fundraiser-layout>
+
+<div class="fundraiser-container">
+    <div class="form-card">
+        <div class="form-header">
+            <h2>Start a Fundraiser</h2>
+            <p>Fill in your campaign details to request financial support for your cause.</p>
+        </div>
+
+        <form [formGroup]="fundRaiserForm" class="fundraiser-form">
+            <div class="form-group">
+                <label for="title">Campaign Title</label>
+                <input type="text" id="title" formControlName="title" placeholder="e.g. Help Aarav Fight Cancer" />
+            </div>
+
+            <div class="form-group">
+                <label for="description">Campaign Description</label>
+                <textarea id="description" formControlName="description" rows="4"
+                    placeholder="Describe the cause, medical condition, or project details..."></textarea>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="targetAmount">Target Amount (₹)</label>
+                    <input type="text" id="targetAmount" formControlName="targetAmount" placeholder="e.g. 500000" />
+                </div>
+
+                <div class="form-group">
+                    <label for="image">Cover Image URL</label>
+                    <input type="text" id="image" formControlName="image"
+                        placeholder="https://images.unsplash.com/..." />
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" (click)="submit()">Submit Fundraiser &rarr;</button>
+        </form>
+    </div>
+</div>
